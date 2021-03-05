@@ -14,14 +14,14 @@ app.get('/', (req, res) => {
     `?client_id=${cfg.id}`,
     '&scope=identify+guilds',
     '&response_type=code',
-    `&callback_uri=http://localhost:8080/authorize`
+    `&callback_uri=https://tamoghnak13.github.io/DB/`
   ].join(''));
 });
 
 app.get('/authorize', (req, res) => {
   const code = req.query.code;
   const cred = btoa(`${cfg.id}:${cfg.secret}`);
-  post(`https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${code}`)
+  post(`https://discord.com/api/oauth2/authorize?client_id=817430466717941815&redirect_uri=https%3A%2F%2Ftamoghnak13.github.io%2FDB%2F&response_type=code&scope=identify%20email`)
     .set('Authorization', `Basic ${cred}`)
     .then(response => res.redirect(`/guilds?token=${response.body.access_token}`))
     .catch(console.error);
